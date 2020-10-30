@@ -30,7 +30,7 @@ int main()
 	{
 		zn = fgetc(fp);
 		if(zn == '\n')
-			brStud++;
+			brStud++; 
 	}
 
 	rewind(fp);
