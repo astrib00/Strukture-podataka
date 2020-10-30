@@ -8,7 +8,7 @@ typedef struct studenti
 	int bodovi; 
 } stud;
 
-int main()
+int main() 
 {
 	int brStud=0;
 	int i=0;
