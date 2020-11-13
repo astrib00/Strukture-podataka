@@ -22,11 +22,15 @@ void dodajIza(pozicija);
 void dodajIspred(pozicija);
 void sortirajPrezime(pozicija);
 int uDatoteku(pozicija);
+int izDatoteke(pozicija);
 
 int main() 
 {
 	struct osoba head;
+	struct osoba headDat;
 	head.next = NULL;
+	headDat.next = NULL;
+	
 	unosP(&head);
 	unosP(&head);
 	ispis(head.next);
@@ -40,6 +44,9 @@ int main()
 	dodajIspred(&head);
 	ispis(head.next);
 	sortirajPrezime(&head);
+	ispis(head.next);
+	uDatoteku(&head);
+	izDatoteke(&headDat);
 	ispis(head.next);
 }
 
@@ -212,7 +219,7 @@ int uDatoteku(pozicija P)
 {
 	FILE* fp = NULL;
 
-	fp = fopen("osobe.txt", "w");
+	fp = fopen("listaljudi.txt", "w");
 
 	if(fp == NULL)
 	{
@@ -230,3 +237,34 @@ int uDatoteku(pozicija P)
 	fclose(fp);
 	return 0;
 }
+
+int izDatoteke(pozicija P)
+{
+	FILE* fp = NULL;
+	
+	pozicija novi;
+
+	fp = fopen("listaljudi.txt" , "r");
+
+	if(fp == NULL) //provjeravamo je li datoteka uspjesno otvorena
+	{
+		printf("Datoteka se nije otvorila!!!");
+		return -1;
+	}
+
+	while(!feof(fp))
+	{
+
+		novi = (pozicija)malloc(sizeof(struct osoba));
+		fscanf(fp, "%s	%s	%d" , novi->ime, novi->prezime, novi->godina);
+
+		novi->next = P->next; //unos se vrsi na kraj liste
+		P->next = novi;
+		P = novi;
+
+	}
+
+	printf("Kraj unosa iz datoteke!");
+	return 0;
+}
+
