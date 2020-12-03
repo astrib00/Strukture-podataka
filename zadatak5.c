@@ -32,7 +32,7 @@ int main()
 	headRu.next = NULL;
 	headRp.next = NULL;
 
-	printf("UNOS MORA BITI SORTIRAN!!!\n");
+	printf("UNOS MORA BITI SORTIRAN RASTUCE(prvi broj najmanji, zadnji najveci)!!!\n");
 	printf("Unos se vrsi na kraj liste!!!\n");
 	printf("Koliko elemenata zelite unijeti u prvu listu?\n");
 	scanf("%d", &n);
