@@ -10,20 +10,7 @@ typedef struct _node
 	position right;
 } Node;
 
-position createNode(int number)
-{
-	position p = NULL;
-
-	p = (position)malloc(sizeof(Node));
-
-	if( NULL == p){
-		printf("Memory allocation failed.\n");
-	return NULL;
-}
-	else
-		return p;
-}
-
+position createNode(int number);
 position insert(position current, position el);
 void printInOrder(position current);
 position find(position current, int number);
@@ -33,29 +20,80 @@ position findMin(position current);
 
 int main(void)
 {
-	position root = NULL;
-	position el = createNode(16);
-	root = insert(root, el);
-	
-	
-	
+	position root = NULL;   
+	  
+
+	int number, br, wantedNumber;
+
+	char sign = 0;
+	while (sign != 'e') {
+
+		printf("\nOperacija:\n");
+		printf("i - insert\np- print\nf- find element\nd- delete\ne- end\n");
+		scanf(" %c", &sign);
+
+		switch (sign) {
+
+		case 'i':
+
+			printf("Unesite nekakav broj: ");
+			scanf("%d", &br);
+			printf("\n");
+			root = insert(root, br);
+			break;
+
+		case 'p':
+
+			printInOrder(root);
+			break;
+
+		case 'd':
+			printf("Unesite broj koji zelite ukloniti:");
+			scanf("%d", &br);
+			printf("\n");
+			root = deleteNode(root, br);
+
+			break;
+
+		case'f':
+			printf("Unesite broj koji zelite pronaci:");
+			scanf("%d", &br);
+			printf("\n");
+			wantedNumber = find(root, br);
+			if (wantedNumber != NULL)
+				printf("Broj %d uspjesno je pronaden.\n", br);
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
 	
 	return EXIT_SUCCESS;
 }
 
-position insert(position current, position el)
+position insert(position current, int el)
 {
 	if(current == NULL)
-		return el;
-
-	if(current->number > el->number)
 	{
+		current = (position)malloc(sizeof(Node));
+
+		current->number = el;
+		current->left = NULL;
+		current->right = NULL;
+	}
+
+	else if(current->number > el) {
 		current->left = insert(current->left, el);
-	}else if(current->number < el->number) {
-		current->right = insert(current->right, el); 
-	}else {
-		printf("Duplicated element %d", el->number);
-		free(el);
+	}
+	else if(current->number < el){
+		current->right = insert(current->right, el);
+	}
+	else {
+		printf("GRESKA!!!Dupliciran clan!\n");
+		//free(el);
 	}
 
 	return current;
@@ -121,4 +159,31 @@ position findMax(position current)
 
 	while(current->right != NULL) current = current->right;
 
+}
+
+position findMin(position current)
+{
+	if(NULL == current)
+		return NULL;
+	while(current->left != NULL)
+	{
+		current = current->left;
+	}
+	return current;
+}
+
+position createNode(int number)
+{
+	position p = NULL;
+
+	p = (position)malloc(sizeof(Node));
+
+	if( NULL == p){
+		printf("Greska u alokaciji memorije.\n");
+	return NULL;
+}
+	else
+		p->number = number;
+		p->left = NULL;
+		p->right = NULL;
 }
