@@ -64,6 +64,7 @@ int velicinaBuffera(FILE* fp)
 	velicina = ftell(fp);
 
 	rewind(fp);
+	
 	return velicina;
 }
 
@@ -72,7 +73,9 @@ char* napraviBuffer(FILE* fp)
 	char* buffer;
 
 	buffer = (char*)calloc(velicinaBuffera(fp) + 2, sizeof(char)); //+2 dodajemo sigurnosti radi
+	
 	fread(buffer, velicinaBuffera(fp), 1, fp);
+	
 	return buffer;
 }
 
@@ -85,6 +88,7 @@ pozicija napraviCvor(char* val)
 	tmp->desno = NULL;
 
 	strcpy(tmp->string, val);
+	
 	return tmp;
 }
 
